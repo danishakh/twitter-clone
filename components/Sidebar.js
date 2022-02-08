@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import SidebarLink from './SidebarLink'
-import { HomeIcon } from '@heroicons/react/solid'
+import { DotsHorizontalIcon, HomeIcon } from '@heroicons/react/solid'
 import {
   HashtagIcon,
   BellIcon,
@@ -28,9 +28,24 @@ const Sidebar = () => {
         <SidebarLink text="Profile" Icon={UserIcon} />
         <SidebarLink text="More" Icon={DotsCircleHorizontalIcon} />
       </div>
-      <button className="ml-auto hidden h-[52px] w-56 rounded-full bg-[#1d9bf0] text-white xl:inline">
+      <button
+        className="ml-auto hidden h-[52px] w-56 rounded-full bg-[#1d9bf0] text-lg 
+        font-bold text-white shadow-md hover:bg-[#1a8cda] xl:inline"
+      >
         Tweet
       </button>
+      <div className="hoverAnimation mt-auto flex items-center justify-center text-[#d9d9d9] xl:ml-auto xl:-mr-5">
+        <img
+          src="https://lh3.googleusercontent.com/a/AATXAJwCsuneWAkKlHwMPxOmLNjFACEvbtN8QPwbUsZ-=s96-c"
+          alt=""
+          className="h-10 w-10 rounded-full xl:mr-2.5"
+        />
+        <div className="hidden leading-5 xl:inline">
+          <h4 className="font-bold">danishakh</h4>
+          <p className="text-[#6e767d]">@danishakh10</p>
+        </div>
+        <DotsHorizontalIcon className="ml-10 hidden h-5 xl:inline" />
+      </div>
     </div>
   )
 }
