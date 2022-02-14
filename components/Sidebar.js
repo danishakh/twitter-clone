@@ -2,6 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import SidebarLink from './SidebarLink'
 import { DotsHorizontalIcon, HomeIcon } from '@heroicons/react/solid'
+import { signOut, useSession } from 'next-auth/react'
 import {
   HashtagIcon,
   BellIcon,
@@ -13,6 +14,7 @@ import {
 } from '@heroicons/react/outline'
 
 const Sidebar = () => {
+  const { data: session } = useSession()
   return (
     <div className="fixed hidden h-full flex-col items-center p-2 sm:flex xl:w-[340px] xl:items-start">
       <div className="hoverAnimation flex h-14 w-14 items-center justify-center p-0 xl:ml-24">
@@ -34,15 +36,18 @@ const Sidebar = () => {
       >
         Tweet
       </button>
-      <div className="hoverAnimation mt-auto flex items-center justify-center text-[#d9d9d9] xl:ml-auto xl:-mr-5">
+      <div
+        className="hoverAnimation mt-auto flex items-center justify-center text-[#d9d9d9] xl:ml-auto xl:-mr-5"
+        onClick={signOut}
+      >
         <img
-          src="https://lh3.googleusercontent.com/a/AATXAJwCsuneWAkKlHwMPxOmLNjFACEvbtN8QPwbUsZ-=s96-c"
+          src={session.user.image}
           alt=""
           className="h-10 w-10 rounded-full xl:mr-2.5"
         />
         <div className="hidden leading-5 xl:inline">
-          <h4 className="font-bold">danishakh</h4>
-          <p className="text-[#6e767d]">@danishakh10</p>
+          <h4 className="font-bold">{session.user.name}</h4>
+          <p className="text-[#6e767d]">@{session.user.tag}</p>
         </div>
         <DotsHorizontalIcon className="ml-10 hidden h-5 xl:inline" />
       </div>
