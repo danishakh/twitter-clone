@@ -4,18 +4,70 @@ import {
   ChatIcon,
   TrashIcon,
   HeartIcon,
+  SwitchHorizontalIcon,
 } from '@heroicons/react/outline'
-import { DotsHorizontalIcon, HeartIconFilled } from '@heroicons/react/solid'
+import {
+  DotsHorizontalIcon,
+  HeartIcon as HeartIconFilled,
+  ChatIcon as ChatIconFilled,
+} from '@heroicons/react/solid'
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-// import Moment from 'react-moment'
-// import { useRecoilState } from 'recoil'
-// import { modalState, postIdState } from '../atoms/modalAtom'
+import { useSession } from 'next-auth/react'
+import Moment from 'react-moment'
+import { useRecoilState } from 'recoil'
+import { modalState, postIdState } from '../atoms/modalAtom'
+import {
+  deleteDoc,
+  setDoc,
+  doc,
+  onSnapshot,
+  collection,
+} from '@firebase/firestore'
+import { db } from '../firebase'
 
 const Post = ({ id, post, postPage }) => {
   //console.log('inside post component', post)
+
+  const { data: session } = useSession()
+  const [isOpen, setIsOpen] = useRecoilState(modalState)
+  const [comments, setComments] = useState([])
+  const [postId, setPostId] = useRecoilState(postIdState)
+  const [liked, setLiked] = useState(false)
+  const [likes, setLikes] = useState([])
+
+  const router = useRouter()
+
+  useEffect(
+    () =>
+      onSnapshot(collection(db, 'posts', id, 'likes'), (snapshot) =>
+        setLikes(snapshot.docs)
+      ),
+    [db, id]
+  )
+  useEffect(
+    () =>
+      setLiked(
+        likes.findIndex((like) => like.id === session?.user?.uid) !== -1
+      ),
+    [likes]
+  )
+
+  const likePost = async () => {
+    if (liked) {
+      await deleteDoc(doc(db, 'posts', id, 'likes', session.user.uid))
+    } else {
+      await setDoc(doc(db, 'posts', id, 'likes', session.user.uid), {
+        username: session.user.name,
+      })
+    }
+  }
+
   return (
-    <div className="flex cursor-pointer border-b border-gray-700 p-3">
+    <div
+      className="flex cursor-pointer border-b border-gray-700 p-3"
+      onClick={() => router.push(`/${id}`)}
+    >
       {!postPage && (
         <img
           src={post?.userImg}
@@ -49,7 +101,7 @@ const Post = ({ id, post, postPage }) => {
             </div>{' '}
             ·{' '}
             <span className="text-sm hover:underline sm:text-[15px]">
-              {/* <Moment fromNow>{post?.timestamp?.toDate()}</Moment> */}
+              <Moment fromNow>{post?.timestamp?.toDate()}</Moment>
             </span>
             {!postPage && (
               <p className="mt-0.5 text-[15px] text-[#d9d9d9] sm:text-base">
@@ -78,7 +130,7 @@ const Post = ({ id, post, postPage }) => {
           }`}
         >
           {/* comment button */}
-          {/* <div
+          <div
             className="group flex items-center space-x-1"
             onClick={(e) => {
               e.stopPropagation()
@@ -94,10 +146,10 @@ const Post = ({ id, post, postPage }) => {
                 {comments.length}
               </span>
             )}
-          </div> */}
+          </div>
 
           {/* delete button */}
-          {/* {session.user.uid === post?.id ? (
+          {session.user.uid === post?.id ? (
             <div
               className="group flex items-center space-x-1"
               onClick={(e) => {
@@ -116,10 +168,10 @@ const Post = ({ id, post, postPage }) => {
                 <SwitchHorizontalIcon className="h-5 group-hover:text-green-500" />
               </div>
             </div>
-          )} */}
+          )}
 
           {/* like button */}
-          {/* <div
+          <div
             className="group flex items-center space-x-1"
             onClick={(e) => {
               e.stopPropagation()
@@ -142,7 +194,7 @@ const Post = ({ id, post, postPage }) => {
                 {likes.length}
               </span>
             )}
-          </div> */}
+          </div>
 
           {/* share button */}
           <div className="icon group">
