@@ -10,32 +10,31 @@ const Feed = () => {
   const [posts, setPosts] = useState([])
 
   // MESSY
-  useEffect(() => {
-    const unsubscribe = onSnapshot(
-      query(collection(db, 'posts'), orderBy('timestamp', 'desc')),
-      (snapshot) => {
-        setPosts(snapshot.docs)
-      }
-    )
-    //console.log(posts.map((post) => post.data()))
+  // useEffect(() => {
+  //   const unsubscribe = onSnapshot(
+  //     query(collection(db, 'posts'), orderBy('timestamp', 'desc')),
+  //     (snapshot) => {
+  //       setPosts(snapshot.docs)
+  //     }
+  //   )
 
-    return () => {
-      unsubscribe()
-    }
-  }, [db])
+  //   return () => {
+  //     unsubscribe()
+  //   }
+  // }, [db])
 
   // CLEAN
-  // useEffect(
-  //   () =>
-  //     onSnapshot(
-  //       query(collection(db, 'posts'), orderBy('timestamp', 'desc')),
-  //       (snapshot) => {
-  //         setPosts(snapshot.docs)
-  //         console.log(posts)
-  //       }
-  //     ),
-  //   [db]
-  // )
+  useEffect(
+    () =>
+      onSnapshot(
+        query(collection(db, 'posts'), orderBy('timestamp', 'desc')),
+        (snapshot) => {
+          setPosts(snapshot.docs)
+          console.log(posts)
+        }
+      ),
+    [db]
+  )
 
   return (
     <div className="h-screen max-w-2xl flex-grow border-l border-r border-gray-700 text-white sm:ml-[73px] xl:ml-[370px]">
