@@ -1,27 +1,32 @@
-# Next.js + Tailwind CSS Example
+# Twitter Clone
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.0)](https://tailwindcss.com/blog/tailwindcss-v3) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+A simple twitter-lite clone built using NextJS with NextAuth for the front-end app, routing and authentication via Google. Also includes Firebase for database and image storage, and Recoil for global state management. Styling was done using TailwindCSS.
 
-## Preview
+## Live Deployed App
 
-Preview the example live on [StackBlitz](http://stackblitz.com/):
+https://twitter-clone-4i6mfao4m-danishakh.vercel.app/
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
+## Packages/Dependencies
 
-## Deploy your own
-
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
-
-## How to use
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
-
-```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
-# or
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
+```
+"@headlessui/react": "^1.4.3",
+"@heroicons/react": "^1.0.5",
+"emoji-mart": "^3.0.1",
+"firebase": "^9.6.6",
+"moment": "^2.29.1",
+"next": "latest",
+"next-auth": "4.0.0-beta.7",
+"react": "^17.0.2",
+"react-dom": "^17.0.2",
+"react-moment": "^1.1.1",
+"recoil": "^0.6.1"
+"autoprefixer": "^10.4.0",
+"postcss": "^8.4.5",
+"prettier": "^2.5.1",
+"prettier-plugin-tailwindcss": "^0.1.1",
+"tailwindcss": "^3.0.7",
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+## Get Started
+
+To spin up a local version of the app, download the repo and fire up the app using `npm run dev`
