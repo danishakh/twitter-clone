@@ -12,13 +12,20 @@ import {
   UserIcon,
   DotsCircleHorizontalIcon,
 } from '@heroicons/react/outline'
+import { useRouter } from 'next/router'
 
 const Sidebar = () => {
   const { data: session } = useSession()
+  const router = useRouter()
   return (
     <div className="fixed hidden h-full flex-col items-center p-2 sm:flex xl:w-[340px] xl:items-start">
       <div className="hoverAnimation flex h-14 w-14 items-center justify-center p-0 xl:ml-24">
-        <Image src="https://rb.gy/ogau5a" width={30} height={30} />
+        <Image
+          onClick={() => router.push('/')}
+          src="https://rb.gy/ogau5a"
+          width={30}
+          height={30}
+        />
       </div>
       <div className="mt-4 mb-2.5 space-y-2.5 xl:ml-24">
         <SidebarLink text="Home" Icon={HomeIcon} active />

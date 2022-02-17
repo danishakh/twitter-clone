@@ -5,6 +5,7 @@ import Sidebar from '../components/Sidebar'
 import Post from '../components/Post'
 import Login from '../components/Login'
 import Comment from '../components/Comment'
+import Widgets from '../components/Widgets'
 import { useRecoilState } from 'recoil'
 import { modalState } from '../atoms/modalAtom'
 import { useRouter } from 'next/router'
@@ -90,9 +91,11 @@ const PostPage = ({ trendingResults, followResults, providers }) => {
           )}
         </div>
 
-        {/* Widgets */}
+        <Widgets
+          trendingResults={trendingResults}
+          followResults={followResults}
+        />
 
-        {/* Modal */}
         {isOpen && <Modal />}
       </main>
     </div>
